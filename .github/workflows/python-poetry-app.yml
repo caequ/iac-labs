@@ -38,6 +38,11 @@ jobs:
     - name: Install dependencies
       run: poetry install --no-root
 
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ./example-app
+
   lint:
     runs-on: ubuntu-latest
     defaults:
@@ -46,6 +51,10 @@ jobs:
     needs: build
 
     steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: my-artifact
+
     - name: Lint with flake8
       run: poetry run task lint
 
@@ -63,5 +72,9 @@ jobs:
     needs: build
 
     steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+
       - name: Test with pytest
         run: poetry run task test
