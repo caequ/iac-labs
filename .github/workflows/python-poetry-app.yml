@@ -45,6 +45,20 @@ jobs:
         path: .
         key: ${{ runner.os }}-venv
 
+  debug:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./example-app
+    needs: build
+
+    steps:
+    - name: "PWD"
+      run: pwd
+    
+    - name: "List files"
+      run: ls -al
+
   lint:
     runs-on: ubuntu-latest
     defaults:
