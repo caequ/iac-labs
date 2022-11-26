@@ -50,6 +50,13 @@ jobs:
     needs: build
 
     steps:
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: ${{ runner.os }}-venv
+
     - name: Source venv
       run: source $VENV
 
